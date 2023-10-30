@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.build.json",
+
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "webcomponents-wrappers-angular": ["packages/angular/src"],
+      "webcomponents-wrappers-core": ["packages/core/src"],
+    },
+    "noEmit": true
+  }
+}

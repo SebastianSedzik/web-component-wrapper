@@ -1,0 +1,14 @@
+{
+  "name": "integration",
+  "scripts": {
+    "prerun": "cd ../core && npm run compile && cd ../angular && npm run compile",
+    "run": "ts-node run.ts"
+  },
+  "dependencies": {
+    "web-component-analyzer": "^2.0.0",
+    "webcomponents-wrappers-angular": "^0.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}

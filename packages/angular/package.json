@@ -1,10 +1,20 @@
 {
   "name": "webcomponents-wrappers-angular",
   "version": "0.0.0",
+  "main": "dist/index",
+  "types": "dist/index",
+  "files": [
+    "dist"
+  ],
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile": "tsc -p tsconfig.build.json"
+  },
+  "dependencies": {
+    "webcomponents-wrappers-core": "^0.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
   },
   "keywords": [],
   "author": "",
