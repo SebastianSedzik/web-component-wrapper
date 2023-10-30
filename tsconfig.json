@@ -4,8 +4,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "webcomponents-wrappers-angular": ["packages/angular/src"],
-      "webcomponents-wrappers-core": ["packages/core/src"],
+      "web-component-wrapper-angular": ["packages/angular/src"],
+      "web-component-wrapper-core": ["packages/core/src"],
     },
     "noEmit": true
   }

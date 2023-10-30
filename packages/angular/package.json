@@ -1,5 +1,5 @@
 {
-  "name": "webcomponents-wrappers-angular",
+  "name": "web-component-wrapper-angular",
   "version": "0.0.0",
   "main": "dist/index",
   "types": "dist/index",

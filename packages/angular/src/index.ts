@@ -1,4 +1,4 @@
-import {ComponentsGenerator, ComponentMetadata, Config, ComponentPropertyMetadata} from 'webcomponents-wrappers-core';
+import {ComponentsGenerator, ComponentMetadata, Config, ComponentPropertyMetadata} from 'web-component-wrapper-core';
 
 interface AngularComponentsOptions {}
 

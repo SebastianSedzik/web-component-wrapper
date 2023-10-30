@@ -1,5 +1,5 @@
 {
-  "name": "webcomponents-wrappers-core",
+  "name": "web-component-wrapper-core",
   "version": "0.0.0",
   "main": "dist/index",
   "types": "dist/index",
