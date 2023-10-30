@@ -3,7 +3,7 @@ import ts from 'typescript';
 import fastGlob from 'fast-glob';
 import { mapToComponentMetadata, ComponentMetadata } from "./componentMetadata";
 
-export { ComponentMetadata, ComponentPropertyMetadata, ComponentPropertyTypeMetadata } from './componentMetadata';
+export { ComponentMetadata, ComponentPropertyMetadata } from './componentMetadata';
 
 export interface Config {
   src: string

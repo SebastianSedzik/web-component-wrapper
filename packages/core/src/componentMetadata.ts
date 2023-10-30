@@ -1,11 +1,6 @@
-export interface ComponentPropertyTypeMetadata {
-  kind: 'simple' | 'custom';
-  value: string | undefined; // 'string', 'number', 'ComponentType.CustomType'
-}
-
 export interface ComponentPropertyMetadata {
     name: string;
-    type: ComponentPropertyTypeMetadata;
+    type: string;
     description?: string;
     default?: any;
 }
@@ -36,35 +31,48 @@ const mapToComponentClassName = (componentDeclaration: any): string => {
 
 const mapToComponentProperties = (componentDeclaration: any): ComponentPropertyMetadata[] => {
   const { members } = componentDeclaration;
+  
+  const isPublic = (member: any) => member.visibility === "public";
   const isProperty = (member: any) => member.kind === "property";
   const isStatic = (member: any) => member.modifiers?.includes("static");
-  const nonStaticProperties = members.filter((member: any) => isProperty(member) && !isStatic(member));
-
+  const nonStaticProperties = members.filter((member: any) => isPublic(member) && isProperty(member) && !isStatic(member));
+  
   return nonStaticProperties.map((member: any): ComponentPropertyMetadata => ({
     name: member.propName,
     description: member.jsDoc?.description,
+    // @todo handle default value
     default: member.default,
     type: mapToComponentPropertyType(member)
   }));
 };
 
-const mapToComponentPropertyType = (member: any): ComponentPropertyTypeMetadata => {
-  const results = /\{(?<kind>.*)\:(?<value>.*)\}/g.exec(member.type);
+const mapToComponentPropertyType = (member: any): string => {
+  console.log(member);
 
-  const isSimpleType = (kind: string | undefined, value: string | undefined) => {
+  const results = /\{(?<kind>.*)\:(?<value>.*)\}/g.exec(member.type);
+  const value = results?.groups?.value;
+  
+  if (!value) {
+    // @todo
+    return "any";
+  }
+
+  const values = value.split('|').map(value => value.trim());
+  
+  return values.map(value => {
+    const isString = (value: string | undefined) => value?.startsWith('"') && value?.endsWith('"');
+
     const simpleTypes: string[] = [
       'string',
-      'number'
-      // @todo all types
+      'number',
+      'boolean',
+      'bigint',
+      'string[]',
+      'number[]',
+      'boolean[]',
+      'bigint[]'
     ];
 
-    return kind === 'SIMPLE_TYPE' || simpleTypes.includes(value as string);
-  }
-  
-  const kind = isSimpleType(results?.groups?.kind, results?.groups?.value) ? 'simple' : 'custom'
-
-  return {
-    kind,
-    value: kind === 'simple' ? results?.groups?.value : `ComponentTypes.${results?.groups?.value}`
-  }
+    return isString(value) || simpleTypes.includes(value) ? value : `ComponentTypes.${value}`;
+  }).join(' | ');
 }
