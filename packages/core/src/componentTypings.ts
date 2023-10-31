@@ -28,7 +28,7 @@ const exportEnums = (content: string): string => {
 
 const transform = (...transformers: any[]) => (value: any) => transformers.reduce((pv, cv) => cv(pv), value);
 
-export const getCustomTypes = (config?: TypescriptConfig) => (filePath: string, analyzerResult: any): string => {
+export const extractTypes = (config?: TypescriptConfig) => (filePath: string, analyzerResult: any): string => {
   if (extname(filePath) !== '.ts') {
     return ""
   }

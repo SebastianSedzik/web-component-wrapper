@@ -2,7 +2,7 @@ import { analyzeSourceFile, transformAnalyzerResult } from "web-component-analyz
 import ts from 'typescript';
 import fastGlob from 'fast-glob';
 import { mapToComponentMetadata, ComponentMetadata } from "./componentMetadata";
-import { getCustomTypes } from './componentCustomTypes';
+import { extractTypes } from './componentTypings';
 
 export { ComponentMetadata, ComponentPropertyMetadata } from './componentMetadata';
 
@@ -46,10 +46,10 @@ const processFile = (config: Config) => (filePath: string): ComponentMetadata =>
   const analyzerResult = analyzeSourceFile(tsSourceFile, { program, ts });
   // @todo: do not use transformAnalyzerResult "debug", rather analyze analyzerResult by own
   // @ts-ignore
-  const debugAnalyzerResult = JSON.parse(transformAnalyzerResult("debug", analyzerResult, program));
-  const customTypes = getCustomTypes(config.typescript)(filePath, debugAnalyzerResult);
+  const componentSchema = JSON.parse(transformAnalyzerResult("debug", analyzerResult, program));
+  const componentTypings = extractTypes(config.typescript)(filePath, componentSchema);
 
-  return mapToComponentMetadata({analyzerResult: debugAnalyzerResult, customTypes});
+  return mapToComponentMetadata({componentSchema, componentTypings});
 }
 
 

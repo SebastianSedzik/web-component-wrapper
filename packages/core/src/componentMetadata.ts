@@ -8,17 +8,17 @@ export interface ComponentPropertyMetadata {
 export interface ComponentMetadata {
   className: string;
   description?: string;
-  customTypes?: string;
+  typings?: string;
   properties: ComponentPropertyMetadata[]
 }
 
 interface MapToComponentMetadata {
-  analyzerResult: any;
-  customTypes?: string;
+  componentSchema: any;
+  componentTypings?: string;
 }
 
-export const mapToComponentMetadata = ({analyzerResult, customTypes}: MapToComponentMetadata): ComponentMetadata => {
-  const componentDeclaration = analyzerResult?.[0]?.declaration;
+export const mapToComponentMetadata = ({componentSchema, componentTypings}: MapToComponentMetadata): ComponentMetadata => {
+  const componentDeclaration = componentSchema?.[0]?.declaration;
 
   // if (!declarations) {
   //   return null;
@@ -26,7 +26,7 @@ export const mapToComponentMetadata = ({analyzerResult, customTypes}: MapToCompo
 
   return {
     className: mapToComponentClassName(componentDeclaration),
-    customTypes,
+    typings: componentTypings,
     description: mapToComponentDescription(componentDeclaration),
     properties: mapToComponentProperties(componentDeclaration)
   }
