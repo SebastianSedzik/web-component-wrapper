@@ -8,12 +8,20 @@ export interface ComponentPropertyMetadata {
 export interface ComponentMetadata {
   // @todo d.ts declaration file path;
   className: string;
-  // customTypesPath?: string;
+  description?: string;
+  customTypes?: string;
   properties: ComponentPropertyMetadata[]
 }
 
-export const mapToComponentMetadata = (analyzerResult: any): ComponentMetadata => {
+interface MapToComponentMetadata {
+  analyzerResult: any;
+  tsDeclarations?: string;
+}
+
+export const mapToComponentMetadata = ({analyzerResult, tsDeclarations}: MapToComponentMetadata): ComponentMetadata => {
   const componentDeclaration = analyzerResult?.[0]?.declaration;
+
+  // console.log(componentDeclaration);
 
   // if (!declarations) {
   //   return null;
@@ -21,12 +29,18 @@ export const mapToComponentMetadata = (analyzerResult: any): ComponentMetadata =
 
   return {
     className: mapToComponentClassName(componentDeclaration),
+    customTypes: tsDeclarations,
+    description: mapToComponentDescription(componentDeclaration),
     properties: mapToComponentProperties(componentDeclaration)
   }
 }
 
 const mapToComponentClassName = (componentDeclaration: any): string => {
   return componentDeclaration.symbol.escapedName;
+}
+
+const mapToComponentDescription = (componentDeclaration: any): string => {
+  return componentDeclaration.jsDoc?.description;
 }
 
 const mapToComponentProperties = (componentDeclaration: any): ComponentPropertyMetadata[] => {
@@ -40,39 +54,19 @@ const mapToComponentProperties = (componentDeclaration: any): ComponentPropertyM
   return nonStaticProperties.map((member: any): ComponentPropertyMetadata => ({
     name: member.propName,
     description: member.jsDoc?.description,
-    // @todo handle default value
     default: member.default,
     type: mapToComponentPropertyType(member)
   }));
 };
 
 const mapToComponentPropertyType = (member: any): string => {
-  console.log(member);
-
-  const results = /\{(?<kind>.*)\:(?<value>.*)\}/g.exec(member.type);
+  const results = /\{(?<kind>\w*)\:(?<value>.*)\}/g.exec(member.type);
   const value = results?.groups?.value;
-  
+
   if (!value) {
     // @todo
     return "any";
   }
-
-  const values = value.split('|').map(value => value.trim());
   
-  return values.map(value => {
-    const isString = (value: string | undefined) => value?.startsWith('"') && value?.endsWith('"');
-
-    const simpleTypes: string[] = [
-      'string',
-      'number',
-      'boolean',
-      'bigint',
-      'string[]',
-      'number[]',
-      'boolean[]',
-      'bigint[]'
-    ];
-
-    return isString(value) || simpleTypes.includes(value) ? value : `ComponentTypes.${value}`;
-  }).join(' | ');
+  return value;
 }

@@ -14,8 +14,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "web-component-analyzer": "^2.0.0",
-    "fast-glob": "^3.3.1"
+    "dts-bundle-generator": "^8.0.0",
+    "fast-glob": "^3.3.1",
+    "web-component-analyzer": "^2.0.0"
   },
   "devDependencies": {
     "typescript": "^5.2.2"
