@@ -1,4 +1,6 @@
-import {generateDtsBundle, EntryPointConfig, CompilationOptions} from "dts-bundle-generator";
+import { generateDtsBundle } from "dts-bundle-generator";
+import { extname } from 'path';
+import { TypescriptConfig } from "./index";
 
 // @todo: description
 const removeComments = (content: string): string => {
@@ -24,21 +26,18 @@ const exportEnums = (content: string): string => {
   return content.replace(regex, 'export enum');
 }
 
-export interface CustomTypesOptions {
-  entries: EntryPointConfig,
-  options?: CompilationOptions
-}
-
 const transform = (...transformers: any[]) => (value: any) => transformers.reduce((pv, cv) => cv(pv), value);
 
-export const getCustomTypes = (config?: CustomTypesOptions) => (filePath: string, analyzerResult: any): string => {
+export const getCustomTypes = (config?: TypescriptConfig) => (filePath: string, analyzerResult: any): string => {
+  if (extname(filePath) !== '.ts') {
+    return ""
+  }
+
   const className = analyzerResult[0].declaration.symbol.escapedName;
-
-  const [result] = generateDtsBundle([{
-    filePath,
-    ...config?.entries
-  }], config?.options);
-
+  const entryPoints = [filePath, ...(config?.includes ?? [])].map(filePath => ({ filePath }));
+  const [result] = generateDtsBundle(entryPoints, {
+    preferredConfigPath: config?.project
+  });
 
   return transform(
     removeComments,

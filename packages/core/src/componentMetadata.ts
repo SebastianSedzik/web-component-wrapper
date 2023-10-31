@@ -42,12 +42,12 @@ const mapToComponentDescription = (componentDeclaration: any): string => {
 
 const mapToComponentProperties = (componentDeclaration: any): ComponentPropertyMetadata[] => {
   const { members } = componentDeclaration;
-  
-  const isPublic = (member: any) => member.visibility === "public";
+
+  const isPublic = (member: any) => member.visibility === undefined || member.visibility === "public";
   const isProperty = (member: any) => member.kind === "property";
   const isStatic = (member: any) => member.modifiers?.includes("static");
   const nonStaticProperties = members.filter((member: any) => isPublic(member) && isProperty(member) && !isStatic(member));
-  
+
   return nonStaticProperties.map((member: any): ComponentPropertyMetadata => ({
     name: member.propName,
     description: member.jsDoc?.description,
