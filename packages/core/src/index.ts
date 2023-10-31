@@ -2,14 +2,15 @@ import { analyzeSourceFile, transformAnalyzerResult } from "web-component-analyz
 import ts from 'typescript';
 import fastGlob from 'fast-glob';
 import { mapToComponentMetadata, ComponentMetadata } from "./componentMetadata";
-import { createDtsFile } from "./componentTsDeclaration";
+import { getCustomTypes, CustomTypesOptions } from './componentCustomTypes';
 
 export { ComponentMetadata, ComponentPropertyMetadata } from './componentMetadata';
 
 export interface Config {
   src: string
   dist: string,
-  generator: ComponentsGenerator
+  generator: ComponentsGenerator,
+  customTypes?: CustomTypesOptions
 }
 
 export interface ComponentsGenerator {
@@ -25,7 +26,7 @@ export const processProject = (config: Config) => {
 
 const processFile = (config: Config) => (filePath: string): ComponentMetadata => {
   const program = ts.createProgram([filePath], {
-    // project: '../ds/tsconfig.json', // @todo read path to project from config?
+    // project: 'tsconfig.json', // @todo read path to project from config?
     allowJs: true
   });
 
@@ -37,12 +38,13 @@ const processFile = (config: Config) => (filePath: string): ComponentMetadata =>
 
   // @ts-ignore
   const analyzerResult = analyzeSourceFile(tsSourceFile, { program, ts });
-  
-  // @todo: do not use transformAnalyzerResult "debug", rather analyze analyzerResult by own
-  const debugAnalyzerResult = JSON.parse(transformAnalyzerResult("debug", analyzerResult, program));
-  const tsDeclarations = createDtsFile(config)(filePath, debugAnalyzerResult);
 
-  return mapToComponentMetadata({analyzerResult: debugAnalyzerResult, tsDeclarations});
+  // @todo: do not use transformAnalyzerResult "debug", rather analyze analyzerResult by own
+  // @ts-ignore
+  const debugAnalyzerResult = JSON.parse(transformAnalyzerResult("debug", analyzerResult, program));
+  const customTypes = getCustomTypes(config.customTypes)(filePath, debugAnalyzerResult);
+
+  return mapToComponentMetadata({analyzerResult: debugAnalyzerResult, customTypes});
 }
 
 

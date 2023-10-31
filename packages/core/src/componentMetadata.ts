@@ -6,7 +6,6 @@ export interface ComponentPropertyMetadata {
 }
 
 export interface ComponentMetadata {
-  // @todo d.ts declaration file path;
   className: string;
   description?: string;
   customTypes?: string;
@@ -15,13 +14,11 @@ export interface ComponentMetadata {
 
 interface MapToComponentMetadata {
   analyzerResult: any;
-  tsDeclarations?: string;
+  customTypes?: string;
 }
 
-export const mapToComponentMetadata = ({analyzerResult, tsDeclarations}: MapToComponentMetadata): ComponentMetadata => {
+export const mapToComponentMetadata = ({analyzerResult, customTypes}: MapToComponentMetadata): ComponentMetadata => {
   const componentDeclaration = analyzerResult?.[0]?.declaration;
-
-  // console.log(componentDeclaration);
 
   // if (!declarations) {
   //   return null;
@@ -29,7 +26,7 @@ export const mapToComponentMetadata = ({analyzerResult, tsDeclarations}: MapToCo
 
   return {
     className: mapToComponentClassName(componentDeclaration),
-    customTypes: tsDeclarations,
+    customTypes,
     description: mapToComponentDescription(componentDeclaration),
     properties: mapToComponentProperties(componentDeclaration)
   }
@@ -61,12 +58,6 @@ const mapToComponentProperties = (componentDeclaration: any): ComponentPropertyM
 
 const mapToComponentPropertyType = (member: any): string => {
   const results = /\{(?<kind>\w*)\:(?<value>.*)\}/g.exec(member.type);
-  const value = results?.groups?.value;
 
-  if (!value) {
-    // @todo
-    return "any";
-  }
-  
-  return value;
+  return results?.groups?.value ?? "any";
 }
