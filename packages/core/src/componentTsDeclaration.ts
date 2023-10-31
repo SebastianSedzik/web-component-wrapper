@@ -1,15 +1,28 @@
 import { generateDtsBundle } from "dts-bundle-generator";
 import { Config } from "./index";
 
+// @todo: description
 const removeComments = (content: string): string => {
   return content.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm, '');
 }
 
+// @todo: description
 const removeClass = (className: string) => (content: string) => {
-  // const classPattern = new RegExp(`\\bexport\\s+declare\\s+class\\s+${className}\\s*\\{[\\s\\S]*?\\}\\n*`, 'gm');
+  const pattern = `(?<classDeclaration>export declare class ${className} [\\w\\W]*)(export \\{)`;
+  const search = new RegExp(pattern, 'gm').exec(content);
+
+  if (search?.groups?.classDeclaration) {
+    return content.replace(search?.groups?.classDeclaration, '');
+  }
+
+  return content;
+}
+
+// @todo: description
+const exportEnums = (content: string): string => {
+  const regex = /^(?!.*\bexport\b).*declare\s+enum/gm;
   
-  // return content.replace(classPattern, '');
-  return content.replace(/export declare class .*\{[\w\W]^(export)*\{/gm, '');
+  return content.replace(regex, 'export enum');
 }
 
 export const createDtsFile = (config: Config) => (filePath: string, analyzerResult: any): string => {
@@ -22,29 +35,10 @@ export const createDtsFile = (config: Config) => (filePath: string, analyzerResu
   
   // @ts-ignore
   const transform = (...transformers) => value => transformers.reduce((pv, cv) => cv(pv), value);
-  
+
   return transform(
     removeComments,
-    // @todo
-    // removeClass(className)
-    // @todo
-    // exportEnums
+    removeClass(className),
+    exportEnums
   )(result);
-
-  // fix enum exports
-  // const search = /declare enum (?<enum>\w+)/gm.exec(result);
-//   const enums = []
-//   const search = /declare enum (?<enum>\w+)/gm; // Your regular expression
-//   let match;
-//
-//   while ((match = search.exec(result)) !== null) {
-//     enums.push(match?.groups?.enum);
-//   }
-//
-//   const reexportEnums = enums.map(enumName => `
-//   declare type ${enumName}Union = ${enumName} | ${enumName}[keyof typeof ${enumName}];
-//   export { ${enumName}Union as ${enumName} };
-// `).join('\n');
-//
-//   return `${result} ${reexportEnums}`;
 }

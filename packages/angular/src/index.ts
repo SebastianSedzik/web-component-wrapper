@@ -63,19 +63,11 @@ ${this.inputs}
   }
 
   generate(config: Config) {
-    // generate component directory
-    // generate component declaration file
-    // generate component file
-
-    const destFilePath = join(config.dist, this.componentMetadata.className, `${this.componentMetadata.className}.component.ts`);
+    const destFilePath = join(config.dist, 'components', `${this.componentMetadata.className}.component.ts`);
 
     if (!existsSync(dirname(destFilePath))) {
       mkdirSync(dirname(destFilePath), { recursive: true });
     }
-
-    // if (this.componentMetadata.customTypes) {
-    //   writeFileSync(join(config.dist, this.componentMetadata.className, `${this.componentMetadata.className}.d.ts`), this.componentMetadata.customTypes, { encoding: 'utf-8'});
-    // }
 
     writeFileSync(destFilePath, this.fileContent, { encoding: 'utf-8'});
   }
