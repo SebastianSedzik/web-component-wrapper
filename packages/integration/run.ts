@@ -3,7 +3,7 @@ import { processProject } from "web-component-wrapper-core";
 
 processProject({
   // src: '../../examples/lit-ts/src/spl-button.ts',
-  src: '/Users/sebastiansedzik/Projects/filament-product-language/packages/core-components/src/lib/components/avatar/src/spl-avatar.ts',
+  src: '/Users/sebastiansedzik/Projects/filament-product-language/packages/core-components/src/lib/components/button/src/spl-button.ts',
   // src: '/Users/sebastiansedzik/Projects/filament-product-language/packages/core-components/src/lib/components/**/*.ts',
   dist: 'dist',
   generator: new AngularComponentsGenerator({
