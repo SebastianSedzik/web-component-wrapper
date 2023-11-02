@@ -11,6 +11,7 @@
     "compile": "tsc -p tsconfig.build.json"
   },
   "dependencies": {
+    "just-kebab-case": "^4.2.0",
     "webcomponents-wrappers-core": "^0.0.0"
   },
   "devDependencies": {
