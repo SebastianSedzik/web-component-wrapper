@@ -4,7 +4,7 @@ import fastGlob from 'fast-glob';
 import { mapToComponentMetadata, ComponentMetadata } from "./componentMetadata";
 import { extractTypes } from './componentTypings';
 
-export { ComponentMetadata, ComponentPropertyMetadata } from './componentMetadata';
+export { ComponentMetadata, ComponentPropertyMetadata, ComponentEventMetadata } from './componentMetadata';
 
 export interface TypescriptConfig {
     project?: string,

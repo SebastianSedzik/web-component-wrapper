@@ -1,15 +1,22 @@
 export interface ComponentPropertyMetadata {
     name: string;
-    type: string;
+    type: string; // maybe type should be an object? { resolvedType: string, originalType: string, isEnum: boolean, isAvailable: boolean }
     description?: string;
     default?: any;
+}
+
+export interface ComponentEventMetadata {
+  name: string;
+  type: string; // maybe type should be an object? { resolvedType: string, originalType: string, isEnum: boolean, isAvailable: boolean }
+  description?: string;
 }
 
 export interface ComponentMetadata {
   className: string;
   description?: string;
   typings?: string;
-  properties: ComponentPropertyMetadata[]
+  properties: ComponentPropertyMetadata[];
+  events: ComponentEventMetadata[];
 }
 
 interface MapToComponentMetadata {
@@ -19,6 +26,8 @@ interface MapToComponentMetadata {
 
 export const mapToComponentMetadata = ({componentSchema, componentTypings}: MapToComponentMetadata): ComponentMetadata => {
   const componentDeclaration = componentSchema?.[0]?.declaration;
+  
+  console.log(componentDeclaration);
 
   // if (!declarations) {
   //   return null;
@@ -28,7 +37,8 @@ export const mapToComponentMetadata = ({componentSchema, componentTypings}: MapT
     className: mapToComponentClassName(componentDeclaration),
     typings: componentTypings,
     description: mapToComponentDescription(componentDeclaration),
-    properties: mapToComponentProperties(componentDeclaration)
+    properties: mapToComponentProperties(componentDeclaration), // @todo check if type is available in typings
+    events: mapToComponentEvents(componentDeclaration) // @todo check if type is available in typings
   }
 }
 
@@ -42,6 +52,10 @@ const mapToComponentDescription = (componentDeclaration: any): string => {
 
 const mapToComponentProperties = (componentDeclaration: any): ComponentPropertyMetadata[] => {
   const { members } = componentDeclaration;
+  
+  if (!members) {
+    return []
+  }
 
   const isPublic = (member: any) => member.visibility === undefined || member.visibility === "public";
   const isProperty = (member: any) => member.kind === "property";
@@ -56,6 +70,21 @@ const mapToComponentProperties = (componentDeclaration: any): ComponentPropertyM
   }));
 };
 
+const mapToComponentEvents = (componentDeclaration: any): ComponentEventMetadata[] => {
+  const { events } = componentDeclaration;
+  
+  if (!events) {
+    return []
+  }
+
+  return events.map((member: any): ComponentEventMetadata => ({
+    name: member.name,
+    description: member.jsDoc?.description,
+    type: mapToComponentPropertyType(member)
+  }));
+}
+
+// rename to mapToType?
 const mapToComponentPropertyType = (member: any): string => {
   const results = /\{(?<kind>\w*)\:(?<value>.*)\}/g.exec(member.type);
 
