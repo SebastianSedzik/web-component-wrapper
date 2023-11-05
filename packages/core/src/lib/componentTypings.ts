@@ -1,6 +1,6 @@
 import { generateDtsBundle } from "dts-bundle-generator";
 import { extname } from 'path';
-import { TypescriptConfig } from "./index";
+import { TypescriptConfig } from "./core";
 
 // @todo: description
 const removeComments = (content: string): string => {
