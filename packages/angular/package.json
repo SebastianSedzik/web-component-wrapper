@@ -1,23 +1,13 @@
 {
   "name": "web-component-wrapper-angular",
-  "version": "0.0.0",
-  "main": "dist/index",
-  "types": "dist/index",
-  "files": [
-    "dist"
-  ],
-  "description": "",
-  "scripts": {
-    "compile": "tsc -p tsconfig.build.json"
-  },
+  "version": "0.0.1",
   "dependencies": {
-    "change-case": "^4.1.2",
-    "webcomponents-wrappers-core": "^0.0.0"
+    "change-case": "^4.1.2"
   },
   "devDependencies": {
     "typescript": "^5.2.2"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "type": "commonjs",
+  "main": "./dist/src/index.js",
+  "typings": "./dist/src/index.d.ts"
 }
