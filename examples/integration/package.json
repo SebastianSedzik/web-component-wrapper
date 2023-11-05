@@ -1,7 +1,8 @@
 {
   "name": "integration",
+  "private": true,
   "scripts": {
-    "run": "ts-node config.ts"
+    "run": "ts-node -r tsconfig-paths/register config.ts"
   },
   "dependencies": {
     "web-component-analyzer": "^2.0.0",
