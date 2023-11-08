@@ -6,14 +6,12 @@
     <title>components library preview</title>
     <link rel="stylesheet" href="./index.css" />
     <script type="module">
-        import { MyButtonLitTs } from './src/ts-lit';
+        import { TagLitTs } from './src/tag-lit-ts';
 
-        customElements.define('my-element', MyButtonLitTs);
+        customElements.define('tag-lit-ts', TagLitTs);
     </script>
 </head>
 <body>
-<my-element>
-    <h1>Vite + Lit</h1>
-</my-element>
+    <tag-lit-ts removable>lit ts</tag-lit-ts>
 </body>
 </html>
