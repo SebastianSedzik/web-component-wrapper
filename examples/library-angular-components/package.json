@@ -1,0 +1,14 @@
+{
+  "name": "components-library-angular",
+  "version": "0.0.1",
+  "scripts": {
+    "generate": "node config.js"
+  },
+  "dependencies": {
+    "components-library": "^0.0.1"
+  },
+  "devDependencies": {
+    "web-component-wrapper-core": "^0.0.1",
+    "web-component-wrapper-angular": "^0.0.1"
+  }
+}

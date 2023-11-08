@@ -1,0 +1,21 @@
+{
+  "name": "components-library",
+  "private": true,
+  "version": "0.0.1",
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lit": "^3.0.1",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2",
+    "vite": "^4.5.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "vite"
+  }
+}
