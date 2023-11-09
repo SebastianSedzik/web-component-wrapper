@@ -1,6 +1,10 @@
+/**
+ * tag styles
+ * Normally, they should be in component file, but for the sake of example, they are shared here
+ */
 @keyframes highlight {
-    0%, 50% {
-        filter: blur(0px);
+    0%, 50%, 100% {
+        filter: blur(4px);
     }
     35%, 65% {
         filter: blur(10px)
@@ -38,7 +42,6 @@
 }
 /* extra glow effect */
 .tag-highlighted:before {
-    filter: blur(0px);
     animation: highlight 2s infinite;
 }
 

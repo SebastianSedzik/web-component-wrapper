@@ -31,7 +31,7 @@ export interface RemoveEvent {
  */
 export class TagLitTs extends LitElement {
   static styles = unsafeCSS(styles);
-  
+
   private created = Date.now();
 
   /**
@@ -45,7 +45,7 @@ export class TagLitTs extends LitElement {
    */
   @property({ type: Boolean })
   removable: boolean = false;
-  
+
   @state()
   private showHighlight: boolean = false;
 
@@ -54,12 +54,12 @@ export class TagLitTs extends LitElement {
    */
   highlight(highlightConfig?: TagHighlightOptions) {
     const config: TagHighlightOptions = {
-      duration: 2000,
+      duration: 4000,
       ...highlightConfig
     }
-    
+
     this.showHighlight = true;
-    
+
     setTimeout(() => this.showHighlight = false, config.duration);
   }
 
