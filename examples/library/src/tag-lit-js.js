@@ -13,16 +13,8 @@ export class TagLitJs extends LitElement {
   static styles = unsafeCSS(styles);
   
   static properties = {
-    /**
-     * The tag’s size. Default is `medium`.
-     */
     size: { type: String },
-
-    /**
-     * Shows a remove button.
-     */
     removable: { type: Boolean, attribute: true },
-
     _created: { state: true },
     _showHighlight: { state: true }
   }
@@ -30,8 +22,16 @@ export class TagLitJs extends LitElement {
   constructor() {
     super();
 
+    /**
+     * The tag’s size. Default is `medium`.
+     */
     this.size = 'medium'
+
+    /**
+     * Shows a remove button.
+     */
     this.removable = false;
+
     this._created = Date.now();
     this._showHighlight = false;
   }

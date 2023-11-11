@@ -19,7 +19,7 @@ export class TagVanillaJs extends HTMLElement {
    * The tag’s size. Default is `medium`.
    */
   get size() {
-    return this.getAttribute('size')
+    return this.getAttribute('size') || 'medium';
   }
 
   set size(value) {
@@ -42,17 +42,6 @@ export class TagVanillaJs extends HTMLElement {
   _firstRendered = false;
   _created = Date.now();
   _template = document.createElement('template');
-  
-  constructor() {
-    super();
-
-    if(this.getAttribute('size') === null) {
-      this.setAttribute('size', 'medium');
-    }
-
-    this._created = Date.now();
-    this._showHighlight = false;
-  }
 
   attributeChangedCallback() {
     if (this._firstRendered) {
