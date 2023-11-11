@@ -7,11 +7,20 @@
     <link rel="stylesheet" href="./index.css" />
     <script type="module">
         import { TagLitTs } from './src/tag-lit-ts';
+        import { TagLitJs } from './src/tag-lit-js';
+        import { TagVanillaJs } from './src/tag-vanilla-js';
+        import { TagVanillaTs } from './src/tag-vanilla-ts';
 
         customElements.define('tag-lit-ts', TagLitTs);
+        customElements.define('tag-lit-js', TagLitJs);
+        customElements.define('tag-vanilla-js', TagVanillaJs);
+        customElements.define('tag-vanilla-ts', TagVanillaTs);
     </script>
 </head>
 <body>
     <tag-lit-ts removable>lit ts</tag-lit-ts>
+    <tag-lit-js removable>lit js</tag-lit-js>
+    <tag-vanilla-ts removable>vanilla ts</tag-vanilla-ts>
+    <tag-vanilla-js removable>vanilla js</tag-vanilla-js>
 </body>
 </html>
