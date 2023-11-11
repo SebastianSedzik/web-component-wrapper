@@ -1,0 +1,61 @@
+/**
+ * tag styles
+ * Normally, they should be in component file, but for the sake of example, they are shared here
+ */
+@keyframes highlight {
+    0%, 50%, 100% {
+        filter: blur(4px);
+    }
+    35%, 65% {
+        filter: blur(10px)
+    }
+}
+
+:host {
+    margin-left: .5rem;
+    display: inline-block;
+}
+.tag {
+    position: relative;
+    color: white;
+    border: 1px solid #646cff;
+    border-radius: 4px;
+    background: #242424;
+}
+/* Glow effect */
+.tag::before {
+    position: absolute;
+    display: block;
+    content: '';
+    width: 100%;
+    top: 0;
+    height: 100%;
+    z-index: -1;
+    filter: blur(4px);
+    transition: filter .3s ease-in-out, background-position 2s ease-in-out;
+    background: linear-gradient(90deg,#646cff, #f96161);
+}
+/* hover glow effect */
+.tag:hover:before {
+    filter: blur(10px);
+    background-position: 60px;
+}
+/* extra glow effect */
+.tag-highlighted:before {
+    animation: highlight 2s infinite;
+}
+
+.tag--small {
+    padding: 0.2rem 0.5rem;
+}
+.tag--medium {
+    padding: 0.4rem 1rem;
+}
+.tag__button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #646cff;
+    margin-right: -0.5rem;
+    font-weight: bold;
+}
