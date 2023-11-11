@@ -2,7 +2,7 @@ const { processProject } = require('web-component-wrapper-core');
 const { AngularComponentsGenerator } = require('web-component-wrapper-angular');
 
 processProject({
-  src: '../library/src/tag-lit-js.js',
+  src: '../library/src/*.(ts|js)',
   dist: './dist',
   typescript: {
     project: '../library/tsconfig.json',
