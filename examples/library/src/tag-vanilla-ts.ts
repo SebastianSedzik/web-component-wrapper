@@ -1,5 +1,24 @@
 import styles from './styles.css'
 
+enum TagSize {
+  Small = 'small',
+  Medium = 'medium'
+}
+
+interface TagHighlightOptions {
+  /**
+   * The highlight duration in milliseconds.
+   */
+  duration?: number;
+}
+
+export interface RemoveEvent {
+  /**
+   * Timestamp of the component creation.
+   */
+  created: number;
+}
+
 /**
  * Categorize content. Tag can be a keyword, people, etc.
  *
@@ -7,7 +26,7 @@ import styles from './styles.css'
  * @slot - The tag’s content.
  *
  */
-export class TagVanillaJs extends HTMLElement {
+export class TagVanillaTs extends HTMLElement {
   static get observedAttributes() {
     return [
       'size',
@@ -18,60 +37,60 @@ export class TagVanillaJs extends HTMLElement {
   /**
    * The tag’s size. Default is `medium`.
    */
-  get size() {
-    return this.getAttribute('size')
+  get size(): TagSize | `${TagSize}` {
+    return this.getAttribute('size') as `${TagSize}`;
   }
 
-  set size(value) {
+  set size(value: TagSize | `${TagSize}`) {
     this.setAttribute('size', value)
   }
-
+  
   /**
    * Shows a remove button.
    */
-  get removable() {
+  get removable(): boolean {
     const removableAttribute = this.getAttribute('removable');
     return removableAttribute === "" || removableAttribute === "true";
   }
 
-  set removable(value) {
-    this.setAttribute('removable', value);
+  set removable(value: boolean) {
+    this.setAttribute('removable', value.toString());
   }
 
   _showHighlight = false;
   _firstRendered = false;
   _created = Date.now();
   _template = document.createElement('template');
-  
+
   constructor() {
     super();
-
+    
     if(this.getAttribute('size') === null) {
       this.setAttribute('size', 'medium');
     }
 
-    this._created = Date.now();
+    // this._created = Date.now();
     this._showHighlight = false;
   }
-
+  
   attributeChangedCallback() {
     if (this._firstRendered) {
       this.render();
     }
   }
-
+  
   /**
    * Highlights the tag for a requested number of time.
    */
-  highlight(highlightConfig) {
-    const config = {
+  highlight(highlightConfig?: TagHighlightOptions) {
+    const config: TagHighlightOptions = {
       duration: 4000,
       ...highlightConfig
     }
 
     this._showHighlight = true;
     this.render();
-
+    
     setTimeout(() => {
       this._showHighlight = false
       this.render();
@@ -82,7 +101,7 @@ export class TagVanillaJs extends HTMLElement {
     /**
      * Emits when the remove button is clicked.
      */
-    this.dispatchEvent(new CustomEvent('my-remove', {
+    this.dispatchEvent(new CustomEvent<RemoveEvent>('my-remove', {
       detail: { created: this._created }
     }));
   }
@@ -98,7 +117,7 @@ export class TagVanillaJs extends HTMLElement {
       removeButton.addEventListener('click', this._onRemove);
     }
   }
-
+  
   connectedCallback() {
     const shadowRoot = this.attachShadow({ mode: 'open' })
     shadowRoot.append(this._template);
@@ -110,18 +129,18 @@ export class TagVanillaJs extends HTMLElement {
     this._addEventHandlers();
     this._firstRendered = true;
   }
-
+  
   getTemplate() {
     const classes = {
       tag: true,
       'tag-highlighted': this._showHighlight,
       [`tag--${this.size}`]: true
     }
-
+    
     const activeClasses = Object.keys(classes)
-      .filter(className => classes[className])
-      .join(' ')
-
+    .filter(className => classes[className])
+    .join(' ')
+    
     return `
         <style>${styles}</style>
         <span class="${activeClasses}">
