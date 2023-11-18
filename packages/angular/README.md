@@ -1,6 +1,13 @@
-# web-component-wrapper-angular
+# @web-component-wrapper/angular
+
+> **WARNING**: This package is still in early development stage. It's API may change in the future.
 
 Generate Angular components from web components library.
+
+## Installation
+```bash
+npm i @web-component-wrapper/angular -D
+```
 
 ## Configuration
 ```ts
@@ -24,8 +31,8 @@ interface AngularComponentsOptions {
 ## Usage
 
 ```ts
-const { processProject } = require('web-component-wrapper-core');
-const { AngularComponentsGenerator } = require('web-component-wrapper-angular');
+const { processProject } = require('@web-component-wrapper/core');
+const { AngularComponentsGenerator } = require('@web-component-wrapper/angular');
 
 processProject({
   ...,

@@ -1,5 +1,5 @@
 {
-  "name": "web-component-wrapper-core",
+  "name": "@web-component-wrapper/core",
   "version": "0.0.1",
   "dependencies": {
     "typescript": "^5.2.2",

@@ -1,6 +1,13 @@
-# web-component-wrapper-core
+# @web-component-wrapper/core
+
+> **WARNING**: This package is still in early development stage. It's API may change in the future.
 
 Generate framework-specific wrappers for your web-component library, to consume it like native one.
+
+## Installation
+```bash
+npm i @web-component-wrapper/core -D
+```
 
 ## Generators
 - [Angular](https://github.com/SebastianSedzik/web-component-wrapper/blob/master/packages/angular/README.md) [WIP]
@@ -41,9 +48,9 @@ interface Config {
 
 ## Usage
 
+### Generate config file
 ```ts
-// create .js file
-const { processProject } = require('web-component-wrapper-core');
+const { processProject } = require('@web-component-wrapper/core');
 
 processProject({
   src: '../../my-component-library/src/**/*.ts',
@@ -56,4 +63,9 @@ processProject({
   },
   generator: new FrameworkSpecificGenerator(options) // select right generator
 });
+```
+
+### Run generator
+```bash
+node ./path/to/config/file.js
 ```
