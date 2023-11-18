@@ -79,7 +79,7 @@ const mapToComponentEvents = (componentDeclaration: any): ComponentEventMetadata
 }
 
 const mapToComponentPropertyType = (member: any): string => {
-  const results = /\{(?<kind>\w*)\:(?<value>.*)\}/g.exec(member.type);
+  const results = /\{(?<kind>\w*):(?<value>.*)\}/g.exec(member.type);
 
   return results?.groups?.value ?? "any";
 }

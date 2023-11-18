@@ -1,6 +1,6 @@
 import { dirname, join } from "path";
 import { existsSync, mkdirSync, writeFileSync } from "fs";
-import { ComponentMetadata, Config, ComponentPropertyMetadata, ComponentEventMetadata } from 'web-component-wrapper-core';
+import { ComponentMetadata, Config, ComponentPropertyMetadata, ComponentEventMetadata } from '@web-component-wrapper/core';
 import { AngularComponentsOptions } from "./generator";
 import { version } from '../../package.json';
 export class AngularComponent {

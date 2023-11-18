@@ -50,7 +50,8 @@ export const processProject = (config: Config) => {
   const componentsMetadata = componentsSourceFiles
     .map(processFile(config))
     .filter(data => data !== null);
-  
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   config.generator.generate(componentsMetadata, config);
 }
@@ -66,6 +67,7 @@ const processFile = (config: Config) => (filePath: string): ComponentMetadata | 
 
   const tsSourceFile = program.getSourceFile(filePath);
   
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const analyzerResult = analyzeSourceFile(tsSourceFile, { program, ts });
 
@@ -77,6 +79,7 @@ const processFile = (config: Config) => (filePath: string): ComponentMetadata | 
   console.log('found component', analyzerResult.componentDefinitions[0]?.declaration?.symbol?.escapedName);
 
   // @todo: do not use transformAnalyzerResult "debug", rather analyze analyzerResult by own
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const componentSchema = JSON.parse(transformAnalyzerResult("debug", analyzerResult, program));
   const componentTypings = extractTypes(config)(filePath, componentSchema);
