@@ -1,11 +1,37 @@
-# core
+# web-component-wrapper-angular
 
-This library was generated with [Nx](https://nx.dev).
+Generate Angular components from web components library.
 
-## Building
+## Configuration
+```ts
+interface AngularComponentsOptions {
+  /**
+   * The designated path for importing the web-component.
+   * Generally, it points to the web-component library.
+   * For instance: ({className}) => `@my-company/my-design-system`;
+   * @param componentMetadata
+   */
+  webComponentImportPath: (componentMetadata: ComponentMetadata) => string;
+  /**
+   * The Angular component's tag name.
+   * For instance: ({className}) => kebabCase(className)
+   * @param componentMetadata
+   */
+  angularComponentTag?: (componentMetadata: ComponentMetadata) => string;
+}
+```
 
-Run `nx build core` to build the library.
+## Usage
 
-## Running unit tests
+```ts
+const { processProject } = require('web-component-wrapper-core');
+const { AngularComponentsGenerator } = require('web-component-wrapper-angular');
 
-Run `nx test core` to execute the unit tests via [Jest](https://jestjs.io).
+processProject({
+  ...,
+  generator: new AngularComponentsGenerator({
+    webComponentImportPath: (componentMetadata) => 'components-library',
+    /// ... and/or other options from AngularComponentsOptions
+  })
+});
+```

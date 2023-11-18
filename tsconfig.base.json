@@ -15,8 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "web-component-wrapper-core": ["packages/core/src"],
-      "web-component-wrapper-angular": ["packages/angular/src"]
+      "web-component-wrapper-angular": ["packages/angular/src"],
+      "web-component-wrapper-core": ["packages/core/src"]
     }
   },
   "exclude": ["node_modules", "tmp"]
