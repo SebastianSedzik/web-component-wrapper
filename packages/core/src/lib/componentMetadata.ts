@@ -26,12 +26,6 @@ interface MapToComponentMetadata {
 
 export const mapToComponentMetadata = ({componentSchema, componentTypings}: MapToComponentMetadata): ComponentMetadata => {
   const componentDeclaration = componentSchema?.[0]?.declaration;
-  
-  console.log(componentDeclaration);
-
-  // if (!declarations) {
-  //   return null;
-  // }
 
   return {
     className: mapToComponentClassName(componentDeclaration),
@@ -84,9 +78,8 @@ const mapToComponentEvents = (componentDeclaration: any): ComponentEventMetadata
   }));
 }
 
-// rename to mapToType?
 const mapToComponentPropertyType = (member: any): string => {
-  const results = /\{(?<kind>\w*)\:(?<value>.*)\}/g.exec(member.type);
+  const results = /\{(?<kind>\w*):(?<value>.*)\}/g.exec(member.type);
 
   return results?.groups?.value ?? "any";
 }

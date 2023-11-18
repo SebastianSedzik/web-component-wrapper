@@ -1,8 +1,10 @@
 {
-  "name": "web-component-wrapper-angular",
+  "name": "@web-component-wrapper/angular",
   "version": "0.0.1",
   "dependencies": {
-    "change-case": "^4.1.2"
+    "change-case": "^4.1.2",
+    "tslib": "^2.3.0",
+    "@web-component-wrapper/core": "^0.0.1"
   },
   "devDependencies": {
     "typescript": "^5.2.2"

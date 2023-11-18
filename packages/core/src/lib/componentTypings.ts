@@ -1,13 +1,21 @@
 import { generateDtsBundle } from "dts-bundle-generator";
 import { extname } from 'path';
-import { TypescriptConfig } from "./core";
+import { Config } from "./core";
 
-// @todo: description
+// @todo: warning/error when missing types (types are not exported)
+// @todo: check if dts-bundle-generator is the best option. (check if it's possible to extract even not exported types)
+// @todo: unit tests
+
+/**
+ * Removes comments from content
+ */
 const removeComments = (content: string): string => {
   return content.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm, '');
 }
 
-// @todo: description
+/**
+ * Removes class declaration from content
+ */
 const removeClass = (className: string) => (content: string) => {
   const pattern = `(?<classDeclaration>export declare class ${className} [\\w\\W]*)(export \\{)`;
   const search = new RegExp(pattern, 'gm').exec(content);
@@ -19,7 +27,9 @@ const removeClass = (className: string) => (content: string) => {
   return content;
 }
 
-// @todo: description
+/**
+ * Mark all enums from content as exported
+ */
 const exportEnums = (content: string): string => {
   const regex = /^(?!.*\bexport\b).*declare\s+enum/gm;
   
@@ -28,15 +38,15 @@ const exportEnums = (content: string): string => {
 
 const transform = (...transformers: any[]) => (value: any) => transformers.reduce((pv, cv) => cv(pv), value);
 
-export const extractTypes = (config?: TypescriptConfig) => (filePath: string, analyzerResult: any): string => {
+export const extractTypes = (config?: Config) => (filePath: string, analyzerResult: any): string => {
   if (extname(filePath) !== '.ts') {
     return ""
   }
 
   const className = analyzerResult[0].declaration.symbol.escapedName;
-  const entryPoints = [filePath, ...(config?.includes ?? [])].map(filePath => ({ filePath }));
+  const entryPoints = [filePath, ...(config?.typescript?.includes ?? [])].map(filePath => ({ filePath }));
   const [result] = generateDtsBundle(entryPoints, {
-    preferredConfigPath: config?.project
+    preferredConfigPath: config?.typescript?.project
   });
 
   return transform(
