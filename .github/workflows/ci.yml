@@ -15,7 +15,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: checkout
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: setup NodeJS
@@ -25,8 +26,9 @@ jobs:
           cache: 'npm'
       - name: install dependencies
         run: npm ci
-      - uses: nrwl/nx-set-shas@v3
-      - run: git branch --track master origin/master
+      - name: setup NX
+        uses: nrwl/nx-set-shas@v3
+        run: git branch --track master origin/master
       - name: lint
         run: npm run affected:lint
       - name: build
