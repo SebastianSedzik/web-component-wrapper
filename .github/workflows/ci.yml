@@ -26,9 +26,9 @@ jobs:
           cache: 'npm'
       - name: install dependencies
         run: npm ci
-      - name: setup NX
-        uses: nrwl/nx-set-shas@v3
-        run: git branch --track master origin/master
+#      - name: setup NX
+      - uses: nrwl/nx-set-shas@v3
+      - run: git branch --track master origin/master
       - name: lint
         run: npm run affected:lint
       - name: build
