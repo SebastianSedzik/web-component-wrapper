@@ -1,8 +1,9 @@
 # @web-component-wrapper/core
 
-> **WARNING**: This package is still in early development stage. It's API may change in the future.
+> [!WARNING]
+> CAUTION: This package is currently in the early stages of development, and its API may undergo changes in the future.
 
-Generate framework-specific wrappers for your web-component library, to consume it like native one.
+Create framework-specific wrappers for your web component library by executing the selected generator.
 
 ## Installation
 ```bash
