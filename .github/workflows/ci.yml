@@ -15,18 +15,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: setup NodeJS
+      - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
           cache: 'npm'
-      - name: install dependencies
+      - name: Install dependencies
         run: npm ci
-#      - name: setup NX
       - uses: nrwl/nx-set-shas@v3
       - run: git branch --track master origin/master
       - name: lint
