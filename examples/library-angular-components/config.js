@@ -1,5 +1,5 @@
-const { processProject } = require('web-component-wrapper-core');
-const { AngularComponentsGenerator } = require('web-component-wrapper-angular');
+const { processProject } = require('@web-component-wrapper/core');
+const { AngularComponentsGenerator } = require('@web-component-wrapper/angular');
 
 processProject({
   src: '../library/src/*.(ts|js)',
