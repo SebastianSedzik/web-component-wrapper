@@ -34,7 +34,7 @@ jobs:
         run: npm ci
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v4
-      - run: git branch --track master origin/master
+#      - run: git branch --track master origin/master
       - name: lint
         run: npm run affected:lint
       - name: build
