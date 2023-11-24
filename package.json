@@ -30,6 +30,14 @@
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
   },
+  "scripts": {
+    "build": "nx run-many -t build",
+    "test": "nx run-many -t test",
+    "lint": "nx run-many -t lint",
+    "affected:build": "nx affected:build",
+    "affected:test": "nx affected:test",
+    "affected:lint": "nx affected:lint"
+  },
   "dependencies": {
     "tslib": "^2.3.0"
   }

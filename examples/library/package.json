@@ -2,10 +2,7 @@
   "name": "components-library",
   "private": true,
   "version": "0.0.1",
-  "description": "",
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "nx": "true",
   "dependencies": {
     "lit": "^3.0.1",
     "tslib": "^2.3.0"
