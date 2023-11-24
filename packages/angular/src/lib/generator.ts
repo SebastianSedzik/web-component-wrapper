@@ -1,4 +1,4 @@
-import { ComponentsGenerator, ComponentMetadata, Config } from 'web-component-wrapper-core';
+import { ComponentsGenerator, ComponentMetadata, Config } from '@web-component-wrapper/core';
 import { paramCase } from 'change-case';
 import { AngularComponent } from './component';
 
