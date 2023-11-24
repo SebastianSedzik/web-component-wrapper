@@ -1,8 +1,11 @@
 {
   "name": "components-library-angular",
+  "private": true,
   "version": "0.0.1",
+  "nx": "true",
   "scripts": {
-    "generate": "node config.js"
+    "generate": "node config.js",
+    "build": "npm run generate"
   },
   "dependencies": {
     "components-library": "^0.0.1"
