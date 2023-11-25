@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  pr-build:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
