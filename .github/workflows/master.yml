@@ -1,17 +1,13 @@
-name: CI
+name: Master build
 
 on:
   push:
     branches:
       - master
-  pull_request:
-    branches:
-      - '**'
   workflow_dispatch:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -34,10 +30,11 @@ jobs:
         run: npm ci
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v4
-#      - run: git branch --track master origin/master
       - name: lint
         run: npm run affected:lint
       - name: build
         run: npm run affected:build
       - name: test
         run: npm run affected:test
+#        @todo - add release step
+#      npm run affected:release
