@@ -1,4 +1,4 @@
-name: Dev build
+name: PR build
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  dev-release:
+  pr-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
