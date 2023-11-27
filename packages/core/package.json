@@ -6,6 +6,9 @@
     "url": "https://github.com/SebastianSedzik/web-component-wrapper.git",
     "directory": "packages/core"
   },
+  "publishConfig": {
+    "directory": "dist"
+  },
   "keywords": [
     "web component",
     "web component wrapper"
