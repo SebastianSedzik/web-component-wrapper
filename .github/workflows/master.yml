@@ -10,12 +10,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write
-      contents: read
-      packages: read
-      actions: read
-      statuses: read
-      pull-requests: read
+      contents: write       # to create release (changesets/action)
+      issues: write         # to post issue comments (changesets/action)
+      pull-requests: write  # to create pull request (changesets/action)
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,13 +25,21 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
-      - name: Derive appropriate SHAs for base and head for `nx affected` commands
-        uses: nrwl/nx-set-shas@v4
+#      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+#        uses: nrwl/nx-set-shas@v4
       - name: lint
-        run: npx nx affected:lint --base=origin/master~1
+        run: npm run lint # lint all
       - name: build
-        run: npx nx affected:build --base=origin/master~1
+        run: npm run build # build all
       - name: test
-        run: npx nx affected:test --base=origin/master~1
-#        @todo - add release step
-#      npm run affected:release
+        run: npm run test # test all
+      - name: Create Release Pull Request or Publish to npm
+        uses: changesets/action@v1
+        with:
+          publish: npm run release
+          version: npm run version
+          commit: "chore: new release"
+          title: "chore: new release candidate"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
