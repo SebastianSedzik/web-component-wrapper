@@ -6,6 +6,9 @@
     "url": "https://github.com/SebastianSedzik/web-component-wrapper.git",
     "directory": "packages/angular"
   },
+  "publishConfig": {
+    "directory": "dist"
+  },
   "keywords": [
     "web component angular",
     "generate web component wrapper",
