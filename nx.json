@@ -25,6 +25,6 @@
     "version": "17.0.3"
   },
   "affected": {
-    "defaultBase": "master"
+    "defaultBase": "origin/master"
   }
 }
