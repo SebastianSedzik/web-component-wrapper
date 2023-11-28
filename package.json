@@ -7,7 +7,9 @@
   "license": "ISC",
   "workspaces": [
     "packages/*",
-    "examples/**"
+    "examples/*",
+    "examples/library-angular-components/*",
+    "examples/library-angular-components/projects/*"
   ],
   "devDependencies": {
     "@nx/eslint": "17.0.3",

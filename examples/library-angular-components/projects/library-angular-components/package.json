@@ -1,0 +1,22 @@
+{
+  "name": "library-angular-components",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^15.2.0",
+    "@angular/core": "^15.2.0"
+  },
+  "scripts": {
+    "generate": "node generator.config.js",
+    "prebuild": "npm run generate",
+    "build": "ng build library-angular-components"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0",
+    "components-library": "^0.0.1"
+  },
+  "devDependencies": {
+    "@web-component-wrapper/core": "^0.1.1",
+    "@web-component-wrapper/angular": "^0.1.1"
+  },
+  "sideEffects": false
+}
