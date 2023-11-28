@@ -43,3 +43,6 @@ processProject({
   })
 });
 ```
+
+## Example
+👀 [library-angular-components](https://github.com/SebastianSedzik/web-component-wrapper/blob/master/examples/library-angular-components) is an example of Angular workspace with library that generates angular-wrappers for [components-library](https://github.com/SebastianSedzik/web-component-wrapper/blob/master/examples/library)
