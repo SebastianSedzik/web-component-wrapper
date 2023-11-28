@@ -26,6 +26,11 @@ interface AngularComponentsOptions {
    * @param componentMetadata
    */
   angularComponentTag?: (componentMetadata: ComponentMetadata) => string;
+  /**
+   * The Angular module's class name (name used in the export statement).
+   * @default WebComponentsModule
+   */
+  angularModuleClassName?: string;
 }
 ```
 
@@ -43,3 +48,6 @@ processProject({
   })
 });
 ```
+
+## Example
+👀 [library-angular-components](https://github.com/SebastianSedzik/web-component-wrapper/blob/master/examples/library-angular-components) is an example of Angular workspace with library that generates angular-wrappers for [components-library](https://github.com/SebastianSedzik/web-component-wrapper/blob/master/examples/library)
