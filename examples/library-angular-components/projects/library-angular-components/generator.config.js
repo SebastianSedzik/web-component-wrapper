@@ -9,6 +9,6 @@ processProject({
     includes: ['../../../library/src/vite-env.d.ts']
   },
   generator: new AngularComponentsGenerator({
-    webComponentImportPath: () => 'components-library' // @todo support file paths (original file path of the class)
+    webComponentImportPath: () => 'library-components' // @todo support file paths (original file path of the class)
   })
 });

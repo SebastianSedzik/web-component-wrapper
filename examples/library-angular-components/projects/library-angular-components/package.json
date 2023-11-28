@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "tslib": "^2.3.0",
-    "components-library": "^0.0.1"
+    "library-components": "^0.0.1"
   },
   "devDependencies": {
     "@web-component-wrapper/core": "^0.1.1",
