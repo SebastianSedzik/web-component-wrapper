@@ -3,6 +3,7 @@ import { existsSync, mkdirSync, writeFileSync } from "fs";
 import { ComponentMetadata, Config, ComponentPropertyMetadata, ComponentEventMetadata } from '@web-component-wrapper/core';
 import { AngularComponentsOptions } from "./generator";
 import { version } from '../../package.json';
+
 export class AngularComponent {
   constructor(private webComponentMetadata: ComponentMetadata, private options: AngularComponentsOptions) {}
   
@@ -62,7 +63,7 @@ ${this.webComponentMetadata.description ? `/** ${this.webComponentMetadata.descr
 @Directive({
   selector: '${this.tag}'
 })
-export class ${this.webComponentMetadata.className}Component {
+export class ${this.generatedComponentClassName} {
 ${this.inputs}
 ${this.outputs}
 }
@@ -71,13 +72,22 @@ ${this.webComponentInitializer}
 `;
   }
   
+  get generatedComponentClassName(): string {
+    return `${this.webComponentMetadata.className}Component`
+  }
+  
+  
+  get generatedFileName(): string {
+    return `${this.webComponentMetadata.className}.component.ts`;
+  }
+  
   generate(config: Config) {
-    const destFilePath = join(config.dist, 'components', `${this.webComponentMetadata.className}.component.ts`);
-    
+    const destFilePath = join(config.dist, this.generatedFileName);
+
     if (!existsSync(dirname(destFilePath))) {
       mkdirSync(dirname(destFilePath), { recursive: true });
     }
-    
+
     writeFileSync(destFilePath, this.fileContent, { encoding: 'utf-8'});
   }
 }

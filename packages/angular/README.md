@@ -26,6 +26,11 @@ interface AngularComponentsOptions {
    * @param componentMetadata
    */
   angularComponentTag?: (componentMetadata: ComponentMetadata) => string;
+  /**
+   * The Angular module's class name (name used in the export statement).
+   * @default WebComponentsModule
+   */
+  angularModuleClassName?: string;
 }
 ```
 

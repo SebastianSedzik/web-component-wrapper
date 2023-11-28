@@ -1,6 +1,7 @@
 import { ComponentsGenerator, ComponentMetadata, Config } from '@web-component-wrapper/core';
 import { paramCase } from 'change-case';
 import { AngularComponent } from './component';
+import { AngularModule } from './module';
 
 export interface AngularComponentsOptions {
   /**
@@ -16,6 +17,11 @@ export interface AngularComponentsOptions {
    * @param componentMetadata
    */
   angularComponentTag?: (componentMetadata: ComponentMetadata) => string;
+  /**
+   * The Angular module's class name (name used in the export statement).
+   * @default WebComponentsModule
+   */
+  angularModuleClassName?: string;
 }
 
 export class AngularComponentsGenerator implements ComponentsGenerator {
@@ -24,15 +30,15 @@ export class AngularComponentsGenerator implements ComponentsGenerator {
   constructor(options: AngularComponentsOptions) {
     this.options = {
       angularComponentTag: ({ className }) => paramCase(className),
+      angularModuleClassName: 'WebComponentsModule',
       ...options
     }
   }
-  
+
   generate(componentsMetadata: ComponentMetadata[], config: Config) {
     const angularComponents = componentsMetadata.map(componentMetadata => new AngularComponent(componentMetadata, this.options));
-    
-    [...angularComponents].forEach(item => item.generate(config))
+    const angularModule = new AngularModule(angularComponents, this.options);
 
-    // @todo generate AngularModule
+    [...angularComponents, angularModule].forEach(item => item.generate(config))
   }
 }
