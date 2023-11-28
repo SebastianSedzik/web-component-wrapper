@@ -1,5 +1,11 @@
 # @web-component-wrapper/angular
 
+## 0.2.0
+
+### Minor Changes
+
+- 25a6fbc: Generate Angular Module with exported components
+
 ## 0.1.1
 
 ### Patch Changes
