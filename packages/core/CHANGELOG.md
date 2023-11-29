@@ -1,5 +1,11 @@
 # @web-component-wrapper/core
 
+## 0.2.0
+
+### Minor Changes
+
+- 3ca78f2: More flexible way for configuring how web-components will be imported and/or mounted
+
 ## 0.1.1
 
 ### Patch Changes
