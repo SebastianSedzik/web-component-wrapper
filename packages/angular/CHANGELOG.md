@@ -1,5 +1,16 @@
 # @web-component-wrapper/angular
 
+## 0.3.0
+
+### Minor Changes
+
+- 3ca78f2: More flexible way for configuring how web-components will be imported and/or mounted
+
+### Patch Changes
+
+- Updated dependencies [3ca78f2]
+  - @web-component-wrapper/core@0.2.0
+
 ## 0.2.0
 
 ### Minor Changes
