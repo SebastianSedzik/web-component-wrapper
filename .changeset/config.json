@@ -7,5 +7,9 @@
   "access": "public",
   "baseBranch": "origin/master",
   "updateInternalDependencies": "patch",
-  "ignore": ["library-components", "example-angular-workspace", "library-angular-components"]
+  "ignore": [
+    "example-angular-workspace",
+    "library-components",
+    "library-angular-components"
+  ]
 }
