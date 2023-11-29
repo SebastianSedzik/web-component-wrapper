@@ -15,7 +15,7 @@ npm i @web-component-wrapper/core -D
 
 ## Configuration
 ```ts
-interface Config {
+export interface Config {
   /**
    * The source files to process. It should point to web-component source files.
    * I.e "src/**.ts"
@@ -29,6 +29,44 @@ interface Config {
    * The generator to use. Use framework specific generator.
    */
   generator: ComponentsGenerator,
+  webComponentProvider: (componentMetadata: ComponentMetadata) => {
+    /**
+     * Function that provides the specific web component from your library and integrates it into the window context.
+     * The implementation depends on how your library exposes web components. It may involve:
+     * - Importing the component and defining it using customElements.define,
+     * - Importing a file with side effects for auto-registration,
+     * - No action required if the component is already available globally.
+     *
+     * Examples:
+     * #1: Library with named exports that require manual component registration
+     * ```typescript
+     * ({ className }) => `
+     * import { ${className} } from "my-design-system";
+     *
+     * try {
+     *   customElements.define("${kebabCase(className)}", class extends ${className} {});
+     * } catch (e) {}
+     * `
+     * ```
+     *
+     * #2: Library with auto-registered components that require importing a file with side effects
+     * ```typescript
+     * ({ className }) => `
+     * import "my-design-system/${className}";
+     * `
+     * ```
+     *
+     * #3: Library with globally available components that do not require additional code
+     * ```typescript
+     * ({ className }) => ``
+     * ```
+     */
+    code: string,
+    /**
+     * Tag name of the mounted web component
+     */
+    tagName: string
+  },
   /**
    * The TypeScript configuration, if your web-components are written in TypeScript.
    */
@@ -52,10 +90,26 @@ interface Config {
 ### Generate config file
 ```ts
 const { processProject } = require('@web-component-wrapper/core');
+import { paramCase } from 'change-case';
 
 processProject({
   src: '../../my-component-library/src/**/*.ts',
   dist: './generated-components',
+  webComponentProvider: ({ className }) => {
+    // Example: Library with named exports that require manual component registration
+    const tagName = paramCase(className);
+
+    return {
+      code: `
+        import { ${className} } from "my-component-library";
+        
+        try {
+          customElements.define("${tagName}", class extends ${className} {});
+        } catch (e) {}
+      `,
+      tagName
+    }
+  },
   typescript: {
     project: '../../my-component-library/tsconfig.json',
     includes: [

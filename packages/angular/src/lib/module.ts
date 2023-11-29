@@ -6,7 +6,7 @@ import { AngularComponentsOptions } from "./generator";
 import { version } from '../../package.json';
 
 export class AngularModule {
-  constructor(private components: AngularComponent[], private options: AngularComponentsOptions) {}
+  constructor(private components: AngularComponent[], private options: AngularComponentsOptions, private config: Config) {}
 
   get generatedFileName(): string {
     return `components.module.ts`;
@@ -55,8 +55,8 @@ export class ${this.options.angularModuleClassName} {}
     `
   }
 
-  generate(config: Config) {
-    const destFilePath = join(config.dist, this.generatedFileName);
+  generate() {
+    const destFilePath = join(this.config.dist, this.generatedFileName);
 
     if (!existsSync(dirname(destFilePath))) {
       mkdirSync(dirname(destFilePath), { recursive: true });
