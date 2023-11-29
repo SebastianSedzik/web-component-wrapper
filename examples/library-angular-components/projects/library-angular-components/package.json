@@ -17,7 +17,8 @@
   },
   "devDependencies": {
     "@web-component-wrapper/core": "^0.1.1",
-    "@web-component-wrapper/angular": "^0.2.0"
+    "@web-component-wrapper/angular": "^0.2.0",
+    "change-case": "^4.1.2"
   },
   "sideEffects": false
 }

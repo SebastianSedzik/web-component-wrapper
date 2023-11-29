@@ -22,7 +22,7 @@ npm i @web-component-wrapper/core @web-component-wrapper/angular -D
 npm i my-web-components-library
 ```
 
-👀 [package.json](https://github.com/SebastianSedzik/web-component-wrapper/blob/master/examples/library-angular-components/projects/library-angular-components/package.json#L16-L21)
+👀 [package.json](https://github.com/SebastianSedzik/web-component-wrapper/blob/master/examples/library-angular-components/projects/library-angular-components/package.json#L16-L20)
 
 #### Step 2: Configure the web-component-wrapper
 Create file where you will specify the source of your web-components library and the destination where the generated wrappers will be stored. Consider adding the folder containing the generated wrappers to your .gitignore file.
