@@ -1,5 +1,11 @@
 # @web-component-wrapper/angular
 
+## 0.3.1
+
+### Patch Changes
+
+- a51ebae: Resolve problem with passing attributes to web-components (inputs binding)
+
 ## 0.3.0
 
 ### Minor Changes
