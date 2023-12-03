@@ -1,5 +1,11 @@
 # @web-component-wrapper/angular
 
+## 0.4.0
+
+### Minor Changes
+
+- 3053228: Switch to Angular Standalone components
+
 ## 0.3.1
 
 ### Patch Changes
