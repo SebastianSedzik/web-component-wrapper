@@ -4,7 +4,7 @@ const { paramCase } = require('change-case');
 
 processProject({
   src: '../../../library/src/*.(ts|js)', // path to `library` source files
-  dist: './src/lib/generated-components', // path where wrappers should be generated, in our case we want to put them to `src`
+  dist: './components', // path where wrappers should be generated, in our case we want to put them to `src`
   typescript: {
     project: '../../../library/tsconfig.json',
     includes: ['../../../library/src/vite-env.d.ts']
