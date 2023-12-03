@@ -1,5 +1,6 @@
 import { dirname, join } from "path";
 import { existsSync, mkdirSync, writeFileSync } from "fs";
+import { paramCase } from 'change-case';
 import { ComponentMetadata, Config, ComponentPropertyMetadata, ComponentEventMetadata } from '@web-component-wrapper/core';
 import { version } from '../../package.json';
 
@@ -57,7 +58,8 @@ ${this.webComponentMetadata.typings}
 
 ${this.webComponentMetadata.description ? `/** ${this.webComponentMetadata.description} */` : ''}
 @Directive({
-  selector: '${webComponentTagName}'
+  selector: '${webComponentTagName}',
+  standalone: true
 })
 export class ${this.generatedComponentClassName} {
 ${this.inputs}
@@ -70,18 +72,23 @@ ${this.outputs}
     return `${this.webComponentMetadata.className}Component`
   }
   
-  
+  get generatedFilePath(): string {
+    return join(
+      this.config.dist,
+      paramCase(this.webComponentMetadata.className),
+      this.generatedFileName
+    );
+  }
+
   get generatedFileName(): string {
-    return `${this.webComponentMetadata.className}.component.ts`;
+    return `${paramCase(this.webComponentMetadata.className)}.ts`;
   }
   
   generate() {
-    const destFilePath = join(this.config.dist, this.generatedFileName);
-
-    if (!existsSync(dirname(destFilePath))) {
-      mkdirSync(dirname(destFilePath), { recursive: true });
+    if (!existsSync(dirname(this.generatedFilePath))) {
+      mkdirSync(dirname(this.generatedFilePath), { recursive: true });
     }
 
-    writeFileSync(destFilePath, this.fileContent, { encoding: 'utf-8'});
+    writeFileSync(this.generatedFilePath, this.fileContent, { encoding: 'utf-8'});
   }
 }

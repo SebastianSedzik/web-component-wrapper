@@ -1,29 +1,25 @@
 import { ComponentsGenerator, ComponentMetadata, Config } from '@web-component-wrapper/core';
 import { AngularComponent } from './component';
-import { AngularModule } from './module';
+import { NgPackagr } from './ng-packagr';
+import { dirname, basename } from 'path';
 
-export interface AngularComponentsOptions {
-  /**
-   * The Angular module's class name (name used in the export statement).
-   * @default WebComponentsModule
-   */
-  angularModuleClassName?: string;
-}
+export interface AngularComponentsOptions {}
 
 export class AngularComponentsGenerator implements ComponentsGenerator {
   private readonly options: AngularComponentsOptions;
   
   constructor(options: AngularComponentsOptions) {
-    this.options = {
-      angularModuleClassName: 'WebComponentsModule',
-      ...options
-    }
+    this.options = { ...options }
   }
 
   generate(componentsMetadata: ComponentMetadata[], config: Config) {
     const angularComponents = componentsMetadata.map(componentMetadata => new AngularComponent(componentMetadata, config));
-    const angularModule = new AngularModule(angularComponents, this.options, config);
 
-    [...angularComponents, angularModule].forEach(item => item.generate())
+    [...angularComponents].forEach(item => {
+      // component file
+      item.generate();
+      // ng-packagr entry point
+      NgPackagr.createEntryPoint(dirname(item.generatedFilePath), basename(item.generatedFilePath));
+    })
   }
 }

@@ -12,13 +12,7 @@ npm i @web-component-wrapper/angular -D
 
 ## Configuration
 ```ts
-interface AngularComponentsOptions {
-  /**
-   * The Angular module's class name (name used in the export statement).
-   * @default WebComponentsModule
-   */
-  angularModuleClassName?: string;
-}
+interface AngularComponentsOptions {}
 ```
 
 ## Usage
@@ -30,7 +24,6 @@ const { AngularComponentsGenerator } = require('@web-component-wrapper/angular')
 processProject({
   ...,
   generator: new AngularComponentsGenerator({
-    angularModuleClassName: 'MyLibraryModule',
     /// ... and/or other options from AngularComponentsOptions
   })
 });
