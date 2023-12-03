@@ -3,6 +3,7 @@ import { AngularComponent } from './component';
 import { NgPackagr } from './ng-packagr';
 import { dirname, basename } from 'path';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AngularComponentsOptions {}
 
 export class AngularComponentsGenerator implements ComponentsGenerator {
