@@ -71,7 +71,7 @@ export class TagVanillaJs extends HTMLElement {
     /**
      * Emits when the remove button is clicked.
      */
-    this.dispatchEvent(new CustomEvent('my-remove', {
+    this.dispatchEvent(new CustomEvent('on-remove', {
       detail: { created: this._created }
     }));
   }

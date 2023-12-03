@@ -15,7 +15,7 @@ interface TagHighlightOptions {
   duration?: number;
 }
 
-export interface RemoveEvent {
+export interface TagRemoveEvent {
   /**
    * Timestamp of the component creation.
    */
@@ -67,7 +67,7 @@ export class TagLitTs extends LitElement {
     /**
      * Emits when the remove button is clicked.
      */
-    this.dispatchEvent(new CustomEvent<RemoveEvent>('my-remove', {
+    this.dispatchEvent(new CustomEvent<TagRemoveEvent>('on-remove', {
       detail: { created: this.created }
     }));
   }

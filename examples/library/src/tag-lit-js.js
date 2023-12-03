@@ -47,7 +47,6 @@ export class TagLitJs extends LitElement {
 
     this._showHighlight = true;
 
-    console.log(this);
     setTimeout(() => this._showHighlight = false, config.duration);
   }
 
@@ -55,7 +54,7 @@ export class TagLitJs extends LitElement {
     /**
      * Emits when the remove button is clicked.
      */
-    this.dispatchEvent(new CustomEvent('my-remove', {
+    this.dispatchEvent(new CustomEvent('on-remove', {
       detail: { created: this.created }
     }));
   }
