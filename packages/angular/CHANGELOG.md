@@ -1,5 +1,15 @@
 # @web-component-wrapper/angular
 
+## 0.4.1
+
+### Patch Changes
+
+- edfb2d9: - Pretty print generated code using Prettier.
+  - Remove `component` from generated Angular component class name.
+  - Clean up generated Angular component class.
+- Updated dependencies [edfb2d9]
+  - @web-component-wrapper/core@0.2.1
+
 ## 0.4.0
 
 ### Minor Changes
