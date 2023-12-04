@@ -11,9 +11,13 @@ export class AngularComponentsGenerator implements ComponentsGenerator {
     this.options = { ...options }
   }
 
-  generate(componentsMetadata: ComponentMetadata[], config: Config) {
-    const angularComponents = componentsMetadata.map(componentMetadata => new AngularComponent(componentMetadata, config));
+  async generate(componentsMetadata: ComponentMetadata[], config: Config) {
+    const generateAngularComponentsTasks = componentsMetadata.map(componentMetadata => new AngularComponent(componentMetadata, config).generate());
 
-    [...angularComponents].forEach(item => item.generate());
+    const tasks = [
+      ...generateAngularComponentsTasks
+    ]
+
+    await Promise.all(tasks);
   }
 }
