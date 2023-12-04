@@ -1,7 +1,5 @@
 import { ComponentsGenerator, ComponentMetadata, Config } from '@web-component-wrapper/core';
 import { AngularComponent } from './component';
-import { NgPackagr } from './ng-packagr';
-import { dirname, basename } from 'path';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AngularComponentsOptions {}
@@ -13,14 +11,13 @@ export class AngularComponentsGenerator implements ComponentsGenerator {
     this.options = { ...options }
   }
 
-  generate(componentsMetadata: ComponentMetadata[], config: Config) {
-    const angularComponents = componentsMetadata.map(componentMetadata => new AngularComponent(componentMetadata, config));
+  async generate(componentsMetadata: ComponentMetadata[], config: Config) {
+    const generateAngularComponentsTasks = componentsMetadata.map(componentMetadata => new AngularComponent(componentMetadata, config).generate());
 
-    [...angularComponents].forEach(item => {
-      // component file
-      item.generate();
-      // ng-packagr entry point
-      NgPackagr.createEntryPoint(dirname(item.generatedFilePath), basename(item.generatedFilePath));
-    })
+    const tasks = [
+      ...generateAngularComponentsTasks
+    ]
+
+    await Promise.all(tasks);
   }
 }

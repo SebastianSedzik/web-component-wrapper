@@ -76,10 +76,10 @@ export interface Config {
 }
 
 export interface ComponentsGenerator {
-  generate(componentMetadata: ComponentMetadata[], config: Config): void;
+  generate(componentMetadata: ComponentMetadata[], config: Config): Promise<void> | void;
 }
 
-export const processProject = (config: Config) => {
+export const processProject = async (config: Config) => {
   const componentsSourceFiles = fastGlob.sync(config.src);
 
   // @todo: improve user notification (use commander)
@@ -91,7 +91,7 @@ export const processProject = (config: Config) => {
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  config.generator.generate(componentsMetadata, config);
+  await config.generator.generate(componentsMetadata, config);
 }
 
 const processFile = (config: Config) => (filePath: string): ComponentMetadata | null => {
