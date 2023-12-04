@@ -59,7 +59,7 @@ const mapToComponentProperties = (componentDeclaration: any): ComponentPropertyM
   return nonStaticProperties.map((member: any): ComponentPropertyMetadata => ({
     name: member.propName,
     description: member.jsDoc?.description,
-    default: member.default,
+    default: typeof member.default === 'string' ? `"${member.default}"` : JSON.stringify(member.default),
     type: mapToComponentPropertyType(member)
   }));
 };
