@@ -5,6 +5,14 @@
 
 Generate Angular components from web components library.
 
+## Supports
+- [X] Description
+- [X] Properties/Inputs
+- [X] Events/Outputs
+- [X] Slots (via docs)
+- [X] Css custom properties (via docs)
+- [ ] Methods
+
 ## Installation
 ```bash
 npm i @web-component-wrapper/angular -D
