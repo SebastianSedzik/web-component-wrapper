@@ -15,8 +15,8 @@
     "library-components": "^0.0.1"
   },
   "devDependencies": {
-    "@web-component-wrapper/core": "^0.2.2",
-    "@web-component-wrapper/angular": "^0.4.2",
+    "@web-component-wrapper/core": "^0.2.3",
+    "@web-component-wrapper/angular": "^0.4.3",
     "change-case": "^4.1.2"
   },
   "sideEffects": false
