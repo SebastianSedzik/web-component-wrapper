@@ -1,5 +1,11 @@
 # @web-component-wrapper/core
 
+## 0.2.3
+
+### Patch Changes
+
+- 03abb58: Update doumentation
+
 ## 0.2.2
 
 ### Patch Changes
