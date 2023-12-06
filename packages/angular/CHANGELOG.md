@@ -1,5 +1,13 @@
 # @web-component-wrapper/angular
 
+## 0.4.2
+
+### Patch Changes
+
+- 878ae3a: Display slots and cssProps in component description
+- Updated dependencies [878ae3a]
+  - @web-component-wrapper/core@0.2.2
+
 ## 0.4.1
 
 ### Patch Changes
