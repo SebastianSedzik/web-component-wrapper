@@ -41,18 +41,22 @@ const mapToComponentClassName = (componentDeclaration: any): string => {
 }
 
 const mapToComponentDescription = (componentDeclaration: any): string => {
-  const slots = componentDeclaration.jsDoc?.tags?.filter((tag: any) => tag.tag === "slot");
-  const cssProps = componentDeclaration.jsDoc?.tags?.filter((tag: any) => tag.tag === "cssprop");
+  const slots = componentDeclaration.jsDoc?.tags?.filter((tag: any) => tag.tag === "slot") ?? [];
+  const cssProps = componentDeclaration.jsDoc?.tags?.filter((tag: any) => tag.tag === "cssprop") ?? [];
   const trimmedMultiline = (multiline: string) => multiline.split('\n').map((line: string) => line.trim()).join('\n');
 
   return trimmedMultiline(`
     ${componentDeclaration.jsDoc?.description}
     
     ## Slots
-    ${ slots.map((slot: any) => `- ${slot.parsed?.name ? `\`${slot.parsed.name}\`` : '*default*' } - ${slot.parsed?.description}`).join('\n') ?? "not available" }
+    ${ slots.length ? slots.map((slot: any) =>
+      `- ${slot.parsed?.name ? `\`${slot.parsed.name}\`` : '*default*' } - ${slot.parsed?.description}`).join('\n') : 'not available'
+    }
 
     ## CSS Custom Properties
-    ${ cssProps.map((cssProp:any) => `- \`${cssProp.parsed?.name}\` - ${cssProp.parsed?.description}`).join('\n') ?? "not available" }
+    ${ cssProps.length ? cssProps.map((cssProp:any) =>
+      `- \`${cssProp.parsed?.name}\` - ${cssProp.parsed?.description}`).join('\n') : 'not available'
+    }
   `);
 }
 
