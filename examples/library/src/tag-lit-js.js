@@ -6,14 +6,20 @@ import styles from './styles.css'
  * Categorize content. Tag can be a keyword, people, etc.
  *
  * @element
- * @slot - The tag’s content.
+ *
+ * @prop {"small"|"medium"} size - The tag’s size. Default is `medium`.
+ * @prop {Boolean} removable - Shows a remove button.
+ * @slot - content of the tag.
+ * @slot remove-button - custom content for the remove button (instead of X icon).
+ * @cssprop --tag-text-color - text color of the tag.
  *
  */
 export class TagLitJs extends LitElement {
   static styles = unsafeCSS(styles);
   
+
   static properties = {
-    size: { type: String },
+    size: { type: String, attribute: true },
     removable: { type: Boolean, attribute: true },
     _created: { state: true },
     _showHighlight: { state: true }
@@ -22,16 +28,8 @@ export class TagLitJs extends LitElement {
   constructor() {
     super();
 
-    /**
-     * The tag’s size. Default is `medium`.
-     */
     this.size = 'medium'
-
-    /**
-     * Shows a remove button.
-     */
     this.removable = false;
-
     this._created = Date.now();
     this._showHighlight = false;
   }
@@ -60,7 +58,9 @@ export class TagLitJs extends LitElement {
   }
 
   get _removeButton() {
-    return html`<button class="tag__button" @click=${this._onRemove()}>X</button>`
+    return html`<button class="tag__button" @click=${this._onRemove()}>
+        <slot name="remove-button">X</slot>
+    </button>`
   }
 
   render() {

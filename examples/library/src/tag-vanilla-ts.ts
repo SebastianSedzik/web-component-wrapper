@@ -23,7 +23,9 @@ export interface TagRemoveEvent {
  * Categorize content. Tag can be a keyword, people, etc.
  *
  * @element
- * @slot - The tag’s content.
+ * @cssprop --tag-text-color - text color of the tag.
+ * @slot - content of the tag.
+ * @slot remove-button - custom content for the remove button (instead of X icon).
  *
  */
 export class TagVanillaTs extends HTMLElement {
@@ -69,7 +71,6 @@ export class TagVanillaTs extends HTMLElement {
       this.setAttribute('size', 'medium');
     }
 
-    // this._created = Date.now();
     this._showHighlight = false;
   }
   
@@ -107,9 +108,11 @@ export class TagVanillaTs extends HTMLElement {
   }
 
   get _removeButton() {
-    return `<button class="tag__button">X</button>`
+    return `<button class="tag__button">
+        <slot name="remove-icon">X</slot>
+    </button>`
   }
-  
+
   _addEventHandlers() {
     const removeButton = this.shadowRoot.querySelector('button');
     
