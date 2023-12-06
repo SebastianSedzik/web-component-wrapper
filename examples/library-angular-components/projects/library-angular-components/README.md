@@ -5,6 +5,7 @@ npm i library-angular-components
 
 ### Usage
 Import  component from `library-angular-components/components/*` and use it in your Angular application.
+Components are defined as standalone Angular components, so you can import them in `NgModule` or other standalone components.
 
 ```ts
 import { TagLitTsComponent, TagRemoveEvent, TagSize } from 'library-angular-components/components/tag-lit-ts';
