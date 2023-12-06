@@ -5,7 +5,14 @@ import { format } from 'prettier';
 import { ComponentMetadata, Config } from '@web-component-wrapper/core';
 import { version } from '../../package.json';
 
-const description = (description: string | undefined) => description ? `/** ${description} */` : '';
+const description = (description: string | undefined) => {
+  if (!description || description.trim() === '') {
+    return '';
+  }
+  const lines = description.split('\n');
+  
+  return lines.length === 1 ? `/** ${description} */` : `/**\n * ${lines.join('\n * ')}\n */`;
+}
 
 export class AngularComponent {
   constructor(private webComponentMetadata: ComponentMetadata, private config: Config) {}
@@ -45,7 +52,7 @@ export class AngularComponent {
         ${description(property.description)}
         @Input()
         @HostBinding('attr.${property.name}')
-        ${property.name}${property.default ? '' : '?'}${ property.type ? `: ${property.type} ` : ''}${ property.default ? ` = ${property.default}` : ''};
+        ${property.name}?:${ property.type ?? 'any' };
       `).join('')}
 
       ${this.webComponentMetadata.events.map(event => `
