@@ -7,8 +7,7 @@
     "@angular/core": "^15.2.0"
   },
   "scripts": {
-    "generate": "node generator.config.js",
-    "prebuild": "npm run generate",
+    "prebuild": "node generator.config.js",
     "build": "ng build library-angular-components"
   },
   "dependencies": {

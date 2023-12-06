@@ -4,7 +4,9 @@ import styles from './styles.css'
  * Categorize content. Tag can be a keyword, people, etc.
  *
  * @element
- * @slot - The tag’s content.
+ * @cssprop --tag-text-color - text color of the tag.
+ * @slot - content of the tag.
+ * @slot remove-button - custom content for the remove button (instead of X icon).
  *
  */
 export class TagVanillaJs extends HTMLElement {
@@ -17,6 +19,7 @@ export class TagVanillaJs extends HTMLElement {
   
   /**
    * The tag’s size. Default is `medium`.
+   * @type {"small"|"medium"}
    */
   get size() {
     return this.getAttribute('size') || 'medium';
@@ -28,6 +31,7 @@ export class TagVanillaJs extends HTMLElement {
 
   /**
    * Shows a remove button.
+   * @type {Boolean}
    */
   get removable() {
     const removableAttribute = this.getAttribute('removable');
@@ -77,7 +81,9 @@ export class TagVanillaJs extends HTMLElement {
   }
 
   get _removeButton() {
-    return `<button class="tag__button">X</button>`
+    return `<button class="tag__button">
+        <slot name="remove-button">X</slot>
+    </button>`
   }
   
   _addEventHandlers() {

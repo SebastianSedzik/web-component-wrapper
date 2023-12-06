@@ -26,7 +26,9 @@ export interface TagRemoveEvent {
  * Categorize content. Tag can be a keyword, people, etc.
  *
  * @element
- * @slot - The tag’s content.
+ * @cssprop --tag-text-color - text color of the tag.
+ * @slot - content of the tag.
+ * @slot remove-button - custom content for the remove button (instead of X icon).
  *
  */
 export class TagLitTs extends LitElement {
@@ -73,7 +75,9 @@ export class TagLitTs extends LitElement {
   }
 
   private get removeButton() {
-    return html`<button class="tag__button" @click=${this.onRemove}>X</button>`
+    return html`<button class="tag__button" @click=${this.onRemove}>
+        <slot name="remove-icon">X</slot>
+    </button>`
   }
 
   override render() {
