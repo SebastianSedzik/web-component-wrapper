@@ -1,5 +1,11 @@
 # @web-component-wrapper/core
 
+## 0.2.2
+
+### Patch Changes
+
+- 878ae3a: Display slots and cssProps in component description
+
 ## 0.2.1
 
 ### Patch Changes
