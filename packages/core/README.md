@@ -3,7 +3,9 @@
 > [!WARNING]
 > CAUTION: This package is currently in the early stages of development, and its API may undergo changes in the future.
 
-Create framework-specific wrappers for your web component library by executing the selected generator.
+`@web-component-wrapper/core` extracts metadata (properties, events, slots, CSS custom properties) and types (TypeScript interfaces, enums, etc.)
+from the source files of web components.
+This information is then passed to the generator selected by user, which is responsible for converting the metadata into framework-specific code and files.
 
 ## Installation
 ```bash
@@ -11,7 +13,20 @@ npm i @web-component-wrapper/core -D
 ```
 
 ## Generators
+Select which generator you want to use:
 - [Angular](https://github.com/SebastianSedzik/web-component-wrapper/blob/master/packages/angular/README.md) [WIP]
+
+### Create custom generator
+To create a custom generator, you need to implement the `ComponentsGenerator` interface.
+```ts
+import { ComponentsGenerator, ComponentMetadata, Config } from '@web-component-wrapper/core';
+
+export class MyGenerator implements ComponentsGenerator {
+    generate(componentMetadata: ComponentMetadata[], config: Config): Promise<void> | void {
+        // Your implementation
+    }
+}
+```
 
 ## Configuration
 ```ts
@@ -90,7 +105,7 @@ export interface Config {
 ### Generate config file
 ```ts
 const { processProject } = require('@web-component-wrapper/core');
-import { paramCase } from 'change-case';
+const { paramCase } = require('change-case');
 
 processProject({
   src: '../../my-component-library/src/**/*.ts',
