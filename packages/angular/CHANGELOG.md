@@ -1,5 +1,12 @@
 # @web-component-wrapper/angular
 
+## 0.4.4
+
+### Patch Changes
+
+- Updated dependencies [f1f112b]
+  - @web-component-wrapper/core@0.3.0
+
 ## 0.4.3
 
 ### Patch Changes

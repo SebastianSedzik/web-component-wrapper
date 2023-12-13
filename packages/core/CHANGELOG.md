@@ -1,5 +1,11 @@
 # @web-component-wrapper/core
 
+## 0.3.0
+
+### Minor Changes
+
+- f1f112b: Add possibility to filter components for wrappers generation
+
 ## 0.2.3
 
 ### Patch Changes
