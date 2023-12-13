@@ -10,8 +10,10 @@
     "directory": "dist"
   },
   "keywords": [
-    "web component",
-    "web component wrapper"
+    "web components",
+    "components",
+    "wrapper",
+    "framework wrapper"
   ],
   "dependencies": {
     "typescript": "^5.2.2",
