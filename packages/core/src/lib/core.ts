@@ -9,13 +9,21 @@ export { ComponentMetadata, ComponentPropertyMetadata, ComponentEventMetadata } 
 export interface Config {
   /**
    * The source files to process. It should point to web-component source files.
-   * I.e "src/**.ts"
+   * I.e "src/**.ts" or ["src/my-button.ts", "src/my-input.ts"]
    */
-  src: string
+  src: string | string[]
   /**
    * The destination directory, where the generated files will be placed.
    */
   dist: string,
+  /**
+   * Function for filtering web components for wrapper generation.
+   * Use it to exclude components that are not ready or intended for internal use only.
+   * By default, all components are included.
+   * Example usage:
+   *   filter: (filePath, componentMetadata) => !componentMetadata.sourceFile.text.includes('// web-component-wrapper-disable')
+   */
+  filter?: (filePath: string, componentMetadata: any) => boolean,
   /**
    * The generator to use. Use framework specific generator.
    */
@@ -79,7 +87,12 @@ export interface ComponentsGenerator {
   generate(componentMetadata: ComponentMetadata[], config: Config): Promise<void> | void;
 }
 
-export const processProject = async (config: Config) => {
+export const processProject = async (userConfig: Config) => {
+  const config: Config = {
+    filter: () => true,
+    ...userConfig
+  }
+
   const componentsSourceFiles = fastGlob.sync(config.src);
 
   // @todo: improve user notification (use commander)
@@ -100,7 +113,8 @@ const processFile = (config: Config) => (filePath: string): ComponentMetadata | 
 
   const program = ts.createProgram([filePath], {
     project: config.typescript?.project,
-    allowJs: true
+    allowJs: true,
+    forceConsistentCasingInFileNames: false
   });
 
   const tsSourceFile = program.getSourceFile(filePath);
@@ -108,8 +122,10 @@ const processFile = (config: Config) => (filePath: string): ComponentMetadata | 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const analyzerResult = analyzeSourceFile(tsSourceFile, { program, ts });
-
-  if (analyzerResult?.componentDefinitions?.length === 0) {
+  const componentHasDefinition = analyzerResult?.componentDefinitions?.length > 0;
+  const componentShouldBeIncluded = () => config.filter && typeof config.filter === 'function' && config.filter(filePath, analyzerResult.componentDefinitions[0]?.declaration);
+  
+  if (!componentHasDefinition || !componentShouldBeIncluded()) {
     return null;
   }
 
