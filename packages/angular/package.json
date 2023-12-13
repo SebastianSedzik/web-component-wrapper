@@ -1,6 +1,6 @@
 {
   "name": "@web-component-wrapper/angular",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "repository": {
     "type": "git",
     "url": "https://github.com/SebastianSedzik/web-component-wrapper.git",
@@ -15,7 +15,7 @@
     "wrapper"
   ],
   "dependencies": {
-    "@web-component-wrapper/core": "^0.3.0",
+    "@web-component-wrapper/core": "^0.3.1",
     "change-case": "^4.1.2",
     "prettier": "^2.6.2",
     "tslib": "^2.3.0"
