@@ -10,9 +10,9 @@
     "directory": "dist"
   },
   "keywords": [
-    "web component angular",
-    "generate web component wrapper",
-    "web component in angular"
+    "web components",
+    "angular",
+    "wrapper"
   ],
   "dependencies": {
     "@web-component-wrapper/core": "^0.3.0",
