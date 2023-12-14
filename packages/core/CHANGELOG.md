@@ -1,5 +1,11 @@
 # @web-component-wrapper/core
 
+## 0.3.1
+
+### Patch Changes
+
+- 2fb644c: Adjust package keywords
+
 ## 0.3.0
 
 ### Minor Changes

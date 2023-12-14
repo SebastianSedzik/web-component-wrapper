@@ -1,5 +1,13 @@
 # @web-component-wrapper/angular
 
+## 0.4.5
+
+### Patch Changes
+
+- 2fb644c: Adjust package keywords
+- Updated dependencies [2fb644c]
+  - @web-component-wrapper/core@0.3.1
+
 ## 0.4.4
 
 ### Patch Changes
